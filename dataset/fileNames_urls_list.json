@@ -1,0 +1,30 @@
+{
+	"name": "fileNames_urls_list",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "StorageAccount_Data",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "adf_Data.txt",
+				"container": "data"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"sourceRelativeURL": {
+					"type": "string"
+				},
+				"sinkFileName": {
+					"type": "string"
+				}
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

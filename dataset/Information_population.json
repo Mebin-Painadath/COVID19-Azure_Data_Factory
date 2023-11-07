@@ -1,0 +1,25 @@
+{
+	"name": "Information_population",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "StorageAccount_Data",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "population_by_age.tsv",
+				"folderPath": "population",
+				"container": "information"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

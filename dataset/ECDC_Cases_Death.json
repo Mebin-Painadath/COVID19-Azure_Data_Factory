@@ -1,0 +1,33 @@
+{
+	"name": "ECDC_Cases_Death",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "StorageAccount_Data",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"fileName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().fileName",
+					"type": "Expression"
+				},
+				"folderPath": "ECDC",
+				"container": "information"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

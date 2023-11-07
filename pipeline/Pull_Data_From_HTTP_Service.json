@@ -1,0 +1,132 @@
+{
+	"name": "Pull_Data_From_HTTP_Service",
+	"properties": {
+		"activities": [
+			{
+				"name": "Lookup_filename_url_list",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"dataset": {
+						"referenceName": "fileNames_urls_list",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "iterate_over_filename_url_list",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Lookup_filename_url_list",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Lookup_filename_url_list').output.value",
+						"type": "Expression"
+					},
+					"isSequential": false,
+					"activities": [
+						{
+							"name": "GetDataFromHTTPService",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "HttpReadSettings",
+										"requestMethod": "GET"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobStorageWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "HTTP_DataSource",
+									"type": "DatasetReference",
+									"parameters": {
+										"relativeURL": {
+											"value": "@item().sourceRelativeURL",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "ECDC_Cases_Death",
+									"type": "DatasetReference",
+									"parameters": {
+										"fileName": {
+											"value": "@item().sinkFileName",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2023-11-06T17:38:53Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,32 @@
+{
+	"name": "HTTP_DataSource",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Case_Death_CSV",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"relativeURL": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": {
+					"value": "@dataset().relativeURL",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": ",",
+			"rowDelimiter": "\n",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": null
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

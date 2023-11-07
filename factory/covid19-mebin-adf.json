@@ -1,0 +1,9 @@
+{
+	"name": "covid19-mebin-adf",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "a1d40e3f-6720-4145-9bf4-4e914504774c",
+		"tenantId": "f0b06929-60fa-48c0-a83d-96566b55f5f4"
+	}
+}
