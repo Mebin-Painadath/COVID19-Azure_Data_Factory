@@ -12,7 +12,15 @@
 					"name": "CaseAndDeathSource"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "CaseAndDeathSink",
+						"type": "DatasetReference"
+					},
+					"name": "CaseAndDeathSink"
+				}
+			],
 			"transformations": [],
 			"scriptLines": [
 				"source(output(",
@@ -27,8 +35,13 @@
 				"          source as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
+				"     validateSchema: true,",
+				"     limit: 2000,",
+				"     ignoreNoFilesFound: false) ~> CaseAndDeathSource",
+				"CaseAndDeathSource sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> CaseAndDeathSource"
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> CaseAndDeathSink"
 			]
 		}
 	}
