@@ -12,16 +12,12 @@
 					"name": "CaseAndDeathSource"
 				}
 			],
-			"sinks": [
+			"sinks": [],
+			"transformations": [
 				{
-					"dataset": {
-						"referenceName": "CaseAndDeathSink",
-						"type": "DatasetReference"
-					},
-					"name": "CaseAndDeathSink"
+					"name": "FilterEuropeOnly"
 				}
 			],
-			"transformations": [],
 			"scriptLines": [
 				"source(output(",
 				"          country as string,",
@@ -38,10 +34,7 @@
 				"     validateSchema: true,",
 				"     limit: 2000,",
 				"     ignoreNoFilesFound: false) ~> CaseAndDeathSource",
-				"CaseAndDeathSource sink(allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> CaseAndDeathSink"
+				"CaseAndDeathSource filter(ERROR_FUNCTION('')) ~> FilterEuropeOnly"
 			]
 		}
 	}
