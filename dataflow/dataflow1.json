@@ -16,6 +16,9 @@
 			"transformations": [
 				{
 					"name": "FilterEuropeOnly"
+				},
+				{
+					"name": "SelectRequiredColumns"
 				}
 			],
 			"scriptLines": [
@@ -34,7 +37,17 @@
 				"     validateSchema: true,",
 				"     limit: 2000,",
 				"     ignoreNoFilesFound: false) ~> CaseAndDeathSource",
-				"CaseAndDeathSource filter(ERROR_FUNCTION('')) ~> FilterEuropeOnly"
+				"CaseAndDeathSource filter(continent == 'Europe' && not(isNull(country_code))) ~> FilterEuropeOnly",
+				"FilterEuropeOnly select(mapColumn(",
+				"          country,",
+				"          country_code,",
+				"          population,",
+				"          indicator,",
+				"          daily_count,",
+				"          source",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> SelectRequiredColumns"
 			]
 		}
 	}
