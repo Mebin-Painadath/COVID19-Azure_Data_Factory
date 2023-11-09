@@ -49,6 +49,35 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/CaseAndDeathSink')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "StorageAccount_Data",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "cases_deaths.csv",
+						"folderPath": "processed",
+						"container": "information"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/StorageAccount_Data')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Data_population')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -97,7 +126,8 @@
 				},
 				"parameters": {
 					"fileName": {
-						"type": "string"
+						"type": "string",
+						"defaultValue": "cases_deaths.csv"
 					}
 				},
 				"annotations": [],
@@ -117,7 +147,44 @@
 					"firstRowAsHeader": true,
 					"quoteChar": "\""
 				},
-				"schema": []
+				"schema": [
+					{
+						"name": "country",
+						"type": "String"
+					},
+					{
+						"name": "country_code",
+						"type": "String"
+					},
+					{
+						"name": "continent",
+						"type": "String"
+					},
+					{
+						"name": "population",
+						"type": "String"
+					},
+					{
+						"name": "indicator",
+						"type": "String"
+					},
+					{
+						"name": "daily_count",
+						"type": "String"
+					},
+					{
+						"name": "date",
+						"type": "String"
+					},
+					{
+						"name": "rate_14_day",
+						"type": "String"
+					},
+					{
+						"name": "source",
+						"type": "String"
+					}
+				]
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/StorageAccount_Data')]"
@@ -800,6 +867,78 @@
 				"[concat(variables('factoryId'), '/datasets/fileNames_urls_list')]",
 				"[concat(variables('factoryId'), '/datasets/HTTP_DataSource')]",
 				"[concat(variables('factoryId'), '/datasets/ECDC_Cases_Death')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataflow1')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "ECDC_Cases_Death",
+								"type": "DatasetReference"
+							},
+							"name": "CaseAndDeathSource"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "CaseAndDeathSink",
+								"type": "DatasetReference"
+							},
+							"name": "sink1"
+						}
+					],
+					"transformations": [
+						{
+							"name": "FilterEuropeOnly"
+						},
+						{
+							"name": "SelectRequiredColumns"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          country as string,",
+						"          country_code as string,",
+						"          continent as string,",
+						"          population as string,",
+						"          indicator as string,",
+						"          daily_count as string,",
+						"          date as string,",
+						"          rate_14_day as string,",
+						"          source as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: true,",
+						"     limit: 2000,",
+						"     ignoreNoFilesFound: false) ~> CaseAndDeathSource",
+						"CaseAndDeathSource filter(continent == 'Europe' && not(isNull(country_code))) ~> FilterEuropeOnly",
+						"FilterEuropeOnly select(mapColumn(",
+						"          country,",
+						"          country_code,",
+						"          population,",
+						"          indicator,",
+						"          daily_count,",
+						"          source",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> SelectRequiredColumns",
+						"SelectRequiredColumns sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> sink1"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ECDC_Cases_Death')]",
+				"[concat(variables('factoryId'), '/datasets/CaseAndDeathSink')]"
 			]
 		},
 		{
