@@ -1,0 +1,9 @@
+{
+	"name": "olymics-adf",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "8727a744-1da4-4748-b6aa-a11bae9774bf",
+		"tenantId": "f0b06929-60fa-48c0-a83d-96566b55f5f4"
+	}
+}
