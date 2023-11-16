@@ -1,5 +1,5 @@
 {
-	"name": "dataflow1",
+	"name": "Filter_CaseDeath_File",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
@@ -27,6 +27,9 @@
 				},
 				{
 					"name": "SelectRequiredColumns"
+				},
+				{
+					"name": "PivotCounts"
 				}
 			],
 			"scriptLines": [
@@ -34,16 +37,15 @@
 				"          country as string,",
 				"          country_code as string,",
 				"          continent as string,",
-				"          population as string,",
+				"          population as integer,",
 				"          indicator as string,",
-				"          daily_count as string,",
-				"          date as string,",
-				"          rate_14_day as string,",
+				"          daily_count as short,",
+				"          date as date,",
+				"          rate_14_day as double,",
 				"          source as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: true,",
-				"     limit: 2000,",
 				"     ignoreNoFilesFound: false) ~> CaseAndDeathSource",
 				"CaseAndDeathSource filter(continent == 'Europe' && not(isNull(country_code))) ~> FilterEuropeOnly",
 				"FilterEuropeOnly select(mapColumn(",
@@ -52,11 +54,22 @@
 				"          population,",
 				"          indicator,",
 				"          daily_count,",
-				"          source",
+				"          source,",
+				"          each(match(name == 'date'),",
+				"               'report'+'_date' = $$)",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> SelectRequiredColumns",
-				"SelectRequiredColumns sink(allowSchemaDrift: true,",
+				"SelectRequiredColumns pivot(groupBy(country,",
+				"          country_code,",
+				"          population,",
+				"          source,",
+				"          report_date),",
+				"     pivotBy(indicator, ['confirmed cases', 'deaths']),",
+				"     count = sum(daily_count),",
+				"     columnNaming: '$V_$N',",
+				"     lateral: true) ~> PivotCounts",
+				"PivotCounts sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> sink1"
