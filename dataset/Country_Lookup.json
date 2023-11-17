@@ -1,0 +1,23 @@
+{
+	"name": "Country_Lookup",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "StorageAccount_Data",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "country_lookup.csv",
+				"container": "data"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}

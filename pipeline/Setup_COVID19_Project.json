@@ -424,7 +424,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "Pull_Data_From_Blob_Storage",
+						"referenceName": "CasesAndDeaths_DataFlow_Pipeline",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": false
