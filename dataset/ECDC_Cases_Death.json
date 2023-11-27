@@ -5,21 +5,12 @@
 			"referenceName": "StorageAccount_Data",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			"fileName": {
-				"type": "string",
-				"defaultValue": "cases_deaths.csv"
-			}
-		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": {
-					"value": "@dataset().fileName",
-					"type": "Expression"
-				},
+				"fileName": "cases_deaths.csv",
 				"folderPath": "ECDC",
 				"container": "information"
 			},

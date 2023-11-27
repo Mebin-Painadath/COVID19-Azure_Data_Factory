@@ -17,12 +17,7 @@
 				"typeProperties": {
 					"dataflow": {
 						"referenceName": "Filter_CaseDeath_File",
-						"type": "DataFlowReference",
-						"datasetParameters": {
-							"CaseAndDeathSource": {
-								"fileName": "cases_deaths.csv"
-							}
-						}
+						"type": "DataFlowReference"
 					},
 					"compute": {
 						"coreCount": 8,
