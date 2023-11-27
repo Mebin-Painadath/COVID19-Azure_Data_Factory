@@ -12,21 +12,33 @@
 					"name": "HospitalAdmissionsStream"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "HospitalAdmissionSink",
+						"type": "DatasetReference"
+					},
+					"name": "HospitalAdmissionSinkSteam"
+				}
+			],
 			"transformations": [],
 			"scriptLines": [
 				"source(output(",
 				"          country as string,",
 				"          indicator as string,",
-				"          date as string,",
+				"          date as date,",
 				"          year_week as string,",
-				"          value as string,",
+				"          value as short,",
 				"          source as string,",
 				"          url as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> HospitalAdmissionsStream"
+				"     ignoreNoFilesFound: false) ~> HospitalAdmissionsStream",
+				"HospitalAdmissionsStream sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> HospitalAdmissionSinkSteam"
 			]
 		}
 	}
