@@ -1,9 +1,9 @@
 {
 	"name": "COVID19-123-adf",
-	"location": "centralindia",
+	"location": "eastus",
 	"identity": {
 		"type": "SystemAssigned",
-		"principalId": "6c72fd6e-b83e-4220-a117-26709e4602ba",
+		"principalId": "70fd3f7a-7f5c-4253-812a-2997620e2f38",
 		"tenantId": "f0b06929-60fa-48c0-a83d-96566b55f5f4"
 	}
 }
