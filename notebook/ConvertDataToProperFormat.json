@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "044e64f3-58b3-44d5-9f73-a83a12ca3b68"
+				"spark.autotune.trackingId": "be7b1b0d-68e3-4f9d-8e87-d20e13058118"
 			}
 		},
 		"metadata": {
@@ -54,7 +54,7 @@
 					"df = spark.read.csv(\"abfss://information@covid19mebinsa.dfs.core.windows.net/ECDC/hospital_admissions.csv\", header=True)\r\n",
 					"df.show()"
 				],
-				"execution_count": 1
+				"execution_count": 5
 			},
 			{
 				"cell_type": "code",
@@ -70,12 +70,13 @@
 					}
 				},
 				"source": [
-					"from pyspark.sql.functions import when\r\n",
+					"from pyspark.sql.functions import when, col\r\n",
 					"df = df.filter(df.indicator.isNotNull())\r\n",
-					"df = df.withColumn(\"url\", when(df.url.endswith(\"\\\"\"), \"\").otherwise(df.url))\r\n",
+					"for i in df.columns\r\n",
+					"    df = df.withColumn(i, when(col(i) == \"\\\"\", \"\").otherwise(col(i)))\r\n",
 					"df.show()"
 				],
-				"execution_count": 24
+				"execution_count": null
 			},
 			{
 				"cell_type": "code",
@@ -93,7 +94,7 @@
 				"source": [
 					"df.write.csv(\"abfss://information@covid19mebinsa.dfs.core.windows.net/ECDC/hospital_admissions.csv\", mode=\"overwrite\")"
 				],
-				"execution_count": 7
+				"execution_count": null
 			},
 			{
 				"cell_type": "code",
