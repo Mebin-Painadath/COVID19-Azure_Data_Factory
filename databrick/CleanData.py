@@ -8,16 +8,4 @@ display(df)
 
 # COMMAND ----------
 
-from pyspark.sql.functions import col, when
-# df.select("url").filter(df.url == "\n").show()
-df = df.filter(df.indicator.isNotNull())
-df = df.withColumn("url", when(col("url")!="\n", col("url")).otherwise(""))
-df.show()
-
-# COMMAND ----------
-
 df.write.csv("abfss://testing@covid19mebinsa.dfs.core.windows.net/ECDC/"+fileName, mode="overwrite")
-
-# COMMAND ----------
-
-
