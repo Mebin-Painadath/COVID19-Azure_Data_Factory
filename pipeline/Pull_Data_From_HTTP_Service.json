@@ -120,6 +120,36 @@
 									}
 								}
 							]
+						},
+						{
+							"name": "Transformation",
+							"type": "DatabricksNotebook",
+							"dependsOn": [
+								{
+									"activity": "GetDataFromHTTPService",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"notebookPath": "/Repos/painadathmebin@gmail.com/COVID19-adf/databrick/CleanData",
+								"baseParameters": {
+									"fileName": "@item().sinkFileName"
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "AzureDatabricks1",
+								"type": "LinkedServiceReference"
+							}
 						}
 					]
 				}
