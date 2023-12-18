@@ -1,21 +1,17 @@
 {
-	"name": "InformationContainer",
+	"name": "DeleteTempFolder",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "StorageAccount_Data",
 			"type": "LinkedServiceReference"
-		},
-		"parameters": {
-			"fileName": {
-				"type": "string"
-			}
 		},
 		"annotations": [],
 		"type": "Binary",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"container": "information"
+				"fileName": "*.*",
+				"folderPath": "Temp_ECDC"
 			}
 		}
 	}

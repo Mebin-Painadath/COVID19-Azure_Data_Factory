@@ -1,5 +1,5 @@
 {
-	"name": "TempFile",
+	"name": "TempFolder",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "StorageAccount_Data",
@@ -11,7 +11,7 @@
 			"location": {
 				"type": "AzureBlobStorageLocation",
 				"folderPath": "Temp_ECDC",
-				"container": "testing"
+				"container": "information"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
