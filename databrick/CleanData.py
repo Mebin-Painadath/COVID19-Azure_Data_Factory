@@ -25,4 +25,4 @@ match fileName:
 
 # COMMAND ----------
 
-df.write.option("header",True).csv("abfss://testing@covid19mebinsa.dfs.core.windows.net/Temp_ECDC/"+fileName, mode="overwrite")
+df.write.option("header",True).csv("abfss://information@covid19mebinsa.dfs.core.windows.net/Temp_ECDC/"+fileName, mode="overwrite")
