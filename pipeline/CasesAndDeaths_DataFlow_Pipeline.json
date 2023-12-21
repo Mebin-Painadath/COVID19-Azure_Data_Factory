@@ -24,9 +24,9 @@
 							}
 						}
 					},
-					"integrationRuntime": {
-						"referenceName": "integrationRuntime",
-						"type": "IntegrationRuntimeReference"
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
 					},
 					"traceLevel": "Fine"
 				}
