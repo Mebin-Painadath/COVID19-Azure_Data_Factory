@@ -240,7 +240,7 @@
 					{
 						"activity": "iterate_over_filename_url_list",
 						"dependencyConditions": [
-							"Failed"
+							"Succeeded"
 						]
 					}
 				],
@@ -272,7 +272,7 @@
 					{
 						"activity": "iterate_over_filename_url_list",
 						"dependencyConditions": [
-							"Failed"
+							"Succeeded"
 						]
 					}
 				],
@@ -289,7 +289,7 @@
 						"referenceName": "InformationContainer",
 						"type": "DatasetReference",
 						"parameters": {
-							"fileName": "Temp_ECDC"
+							"fileName": "Temp_ECDC.csv"
 						}
 					},
 					"enableLogging": false,
