@@ -1,0 +1,32 @@
+{
+	"name": "HospitalAdmissionFolder",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "StorageAccount_Data",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"folderName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "*.csv",
+				"folderPath": {
+					"value": "@concat('Hospital_Admission/', dataset().folderName)",
+					"type": "Expression"
+				},
+				"container": "information"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}

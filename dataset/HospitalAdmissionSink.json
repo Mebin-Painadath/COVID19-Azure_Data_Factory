@@ -1,0 +1,64 @@
+{
+	"name": "HospitalAdmissionSink",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "StorageAccount_Data",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"sinkFileName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "concat(dataset().sinkFileName, '.csv')",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@concat('Hospital_Admission/', dataset().sinkFileName)",
+					"type": "Expression"
+				},
+				"container": "information"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Belgium",
+				"type": "String"
+			},
+			{
+				"name": "BE",
+				"type": "String"
+			},
+			{
+				"name": "BEL",
+				"type": "String"
+			},
+			{
+				"name": "11455519",
+				"type": "String"
+			},
+			{
+				"name": "2020-W43",
+				"type": "String"
+			},
+			{
+				"name": "TESSy COVID-19, national weekly data",
+				"type": "String"
+			},
+			{
+				"name": "28",
+				"type": "String"
+			}
+		]
+	}
+}

@@ -32,14 +32,14 @@
 						"referenceName": "StorageAccount_Data",
 						"type": "LinkedServiceReference"
 					},
-					"name": "HospitalAdmissionSinkSteam"
+					"name": "WeeklySinkStream"
 				},
 				{
 					"linkedService": {
 						"referenceName": "StorageAccount_Data",
 						"type": "LinkedServiceReference"
 					},
-					"name": "DailyData"
+					"name": "DailySinkStream"
 				}
 			],
 			"transformations": [
@@ -171,24 +171,24 @@
 				"     validateSchema: false,",
 				"     format: 'delimited',",
 				"     container: 'information',",
-				"     folderPath: 'Hospital_Admission/Weekly',",
+				"     folderPath: 'Hospital_Admission/Temp_Weekly',",
 				"     columnDelimiter: ',',",
 				"     escapeChar: '\\\\',",
 				"     quoteChar: '\\\"',",
 				"     columnNamesAsHeader: false,",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> HospitalAdmissionSinkSteam",
+				"     skipDuplicateMapOutputs: true) ~> WeeklySinkStream",
 				"SortDaily sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'delimited',",
 				"     container: 'information',",
-				"     folderPath: 'Hospital_Admission/Daily',",
+				"     folderPath: 'Hospital_Admission/Temp_Daily',",
 				"     columnDelimiter: ',',",
 				"     escapeChar: '\\\\',",
 				"     quoteChar: '\\\"',",
 				"     columnNamesAsHeader: false,",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> DailyData"
+				"     skipDuplicateMapOutputs: true) ~> DailySinkStream"
 			]
 		}
 	}
