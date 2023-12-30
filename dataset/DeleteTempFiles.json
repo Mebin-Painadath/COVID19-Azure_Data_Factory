@@ -1,24 +1,16 @@
 {
-	"name": "DeleteTempFolder",
+	"name": "DeleteTempFiles",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "StorageAccount_Data",
 			"type": "LinkedServiceReference"
-		},
-		"parameters": {
-			"deleteFolderName": {
-				"type": "string"
-			}
 		},
 		"annotations": [],
 		"type": "Binary",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"folderPath": {
-					"value": "@concat('Temp_ECDC', '/', dataset().deleteFolderName)",
-					"type": "Expression"
-				},
+				"folderPath": "Temp_ECDC",
 				"container": "information"
 			}
 		}

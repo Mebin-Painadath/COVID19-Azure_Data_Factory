@@ -229,6 +229,45 @@
 									}
 								}
 							]
+						},
+						{
+							"name": "Delete_TempECDC_Folders",
+							"type": "Delete",
+							"dependsOn": [
+								{
+									"activity": "Copy data from Temp ECDC to ECDC",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"dataset": {
+									"referenceName": "DeleteTempFolder",
+									"type": "DatasetReference",
+									"parameters": {
+										"deleteFolderName": {
+											"value": "@item().sinkFileName",
+											"type": "Expression"
+										}
+									}
+								},
+								"enableLogging": false,
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"wildcardFileName": "*",
+									"enablePartitionDiscovery": false
+								}
+							}
 						}
 					]
 				}
@@ -254,13 +293,14 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "DeleteTempFolder",
+						"referenceName": "DeleteTempFiles",
 						"type": "DatasetReference"
 					},
 					"enableLogging": false,
 					"storeSettings": {
 						"type": "AzureBlobStorageReadSettings",
 						"recursive": true,
+						"wildcardFileName": "*",
 						"enablePartitionDiscovery": false
 					}
 				}
@@ -289,7 +329,7 @@
 						"referenceName": "InformationContainer",
 						"type": "DatasetReference",
 						"parameters": {
-							"fileName": "Temp_ECDC.csv"
+							"fileName": "Temp_ECDC"
 						}
 					},
 					"enableLogging": false,
