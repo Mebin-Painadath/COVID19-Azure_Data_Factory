@@ -2,7 +2,7 @@
 dbutils.widgets.text("fileName", "case_deaths_uk_ind_only.csv")
 fileName = dbutils.widgets.get("fileName")
 
-spark.conf.set("fs.azure.account.key.covid19mebinsa.dfs.core.windows.net", "VFrGxhZM6xWzMlkRU9zAgW+3QQxlKBsuh6wcK2jaUmtmgSkVe3XlUyORctRwna/j52Dx0c6luoTP+AStSVwXhA==")
+spark.conf.set("fs.azure.account.key.covid19mebinsa.dfs.core.windows.net", "mIbnq/7RXsvWD+z/Kavfuq1mVBjbV5TOOdy0ND+FiX41Y8NSBOSqHvZ66cchQMuBnxdU7IDnkAXr+AStZqQw0Q==")
 df = spark.read.csv("abfss://information@covid19mebinsa.dfs.core.windows.net/ECDC/"+fileName, header=True)
 
 # COMMAND ----------
