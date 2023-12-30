@@ -17,15 +17,29 @@
 						"type": "DatasetReference"
 					},
 					"name": "CountryCodeStream"
+				},
+				{
+					"dataset": {
+						"referenceName": "DimDate",
+						"type": "DatasetReference"
+					},
+					"name": "DimDateSource"
 				}
 			],
 			"sinks": [
 				{
-					"dataset": {
-						"referenceName": "HospitalAdmissionSink",
-						"type": "DatasetReference"
+					"linkedService": {
+						"referenceName": "StorageAccount_Data",
+						"type": "LinkedServiceReference"
 					},
 					"name": "HospitalAdmissionSinkSteam"
+				},
+				{
+					"linkedService": {
+						"referenceName": "StorageAccount_Data",
+						"type": "LinkedServiceReference"
+					},
+					"name": "DailyData"
 				}
 			],
 			"transformations": [
@@ -40,6 +54,24 @@
 				},
 				{
 					"name": "SplitDailyFromWeekly"
+				},
+				{
+					"name": "AggDimDate"
+				},
+				{
+					"name": "JoinWithDate"
+				},
+				{
+					"name": "PivotWeekly"
+				},
+				{
+					"name": "pivot1"
+				},
+				{
+					"name": "SortWeekly"
+				},
+				{
+					"name": "SortDaily"
 				}
 			],
 			"scriptLines": [
@@ -65,6 +97,23 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> CountryCodeStream",
+				"source(output(",
+				"          date_key as string,",
+				"          date as string,",
+				"          year as string,",
+				"          month as string,",
+				"          day as string,",
+				"          day_name as string,",
+				"          day_of_year as string,",
+				"          week_of_month as string,",
+				"          week_of_year as string,",
+				"          month_name as string,",
+				"          year_month as string,",
+				"          year_week as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> DimDateSource",
 				"HospitalAdmissionsStream filter(country != \"\\\"\") ~> FilterOutNullValues",
 				"FilterOutNullValues, CountryCodeStream lookup(HospitalAdmissionsStream@country == CountryCodeStream@country,",
 				"     multiple: false,",
@@ -86,10 +135,60 @@
 				"     skipDuplicateMapOutputs: true) ~> SelectRequiredColumns",
 				"SelectRequiredColumns split(indicator == \"Weekly new hospital admissions per 100k\" || indicator == \"Weekly new ICU admissions per 100k\",",
 				"     disjoint: false) ~> SplitDailyFromWeekly@(Weekly, Daily)",
-				"SplitDailyFromWeekly@Weekly sink(allowSchemaDrift: true,",
+				"DimDateSource aggregate(groupBy(ecdc_year_week = year + \"-W\" + lpad(week_of_year, 2, \"0\")),",
+				"     week_start_date = min(date),",
+				"          week_end_date = max(date)) ~> AggDimDate",
+				"SplitDailyFromWeekly@Weekly, AggDimDate join(reported_year_week == ecdc_year_week,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> JoinWithDate",
+				"JoinWithDate pivot(groupBy(country,",
+				"          country_code_2_digit,",
+				"          country_code_3_digit,",
+				"          population,",
+				"          reported_year_week,",
+				"          source),",
+				"     pivotBy(indicator, ['Weekly new hospital admissions per 100k', 'Weekly new ICU admissions per 100k']),",
+				"     count = sum(value),",
+				"     columnNaming: '$V_$N',",
+				"     lateral: true) ~> PivotWeekly",
+				"SplitDailyFromWeekly@Daily pivot(groupBy(country,",
+				"          country_code_2_digit,",
+				"          country_code_3_digit,",
+				"          reported_date,",
+				"          source,",
+				"          population),",
+				"     pivotBy(indicator, ['Daily hospital occupancy', 'Daily ICU occupancy']),",
+				"     count = sum(value),",
+				"     columnNaming: '$V_$N',",
+				"     lateral: true) ~> pivot1",
+				"PivotWeekly sort(desc(reported_year_week, true),",
+				"     asc(country, true)) ~> SortWeekly",
+				"pivot1 sort(desc(reported_date, true),",
+				"     asc(country, true)) ~> SortDaily",
+				"SortWeekly sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     format: 'delimited',",
+				"     container: 'information',",
+				"     folderPath: 'Hospital_Admission/Weekly',",
+				"     columnDelimiter: ',',",
+				"     escapeChar: '\\\\',",
+				"     quoteChar: '\\\"',",
+				"     columnNamesAsHeader: false,",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> HospitalAdmissionSinkSteam"
+				"     skipDuplicateMapOutputs: true) ~> HospitalAdmissionSinkSteam",
+				"SortDaily sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'delimited',",
+				"     container: 'information',",
+				"     folderPath: 'Hospital_Admission/Daily',",
+				"     columnDelimiter: ',',",
+				"     escapeChar: '\\\\',",
+				"     quoteChar: '\\\"',",
+				"     columnNamesAsHeader: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> DailyData"
 			]
 		}
 	}
