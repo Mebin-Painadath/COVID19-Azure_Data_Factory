@@ -16,7 +16,7 @@
 			"location": {
 				"type": "AzureBlobStorageLocation",
 				"fileName": {
-					"value": "concat(dataset().sinkFileName, '.csv')",
+					"value": "@concat(dataset().sinkFileName, '.csv')",
 					"type": "Expression"
 				},
 				"folderPath": {
