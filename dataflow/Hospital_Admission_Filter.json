@@ -66,12 +66,6 @@
 				},
 				{
 					"name": "pivot1"
-				},
-				{
-					"name": "SortWeekly"
-				},
-				{
-					"name": "SortDaily"
 				}
 			],
 			"scriptLines": [
@@ -135,7 +129,7 @@
 				"     skipDuplicateMapOutputs: true) ~> SelectRequiredColumns",
 				"SelectRequiredColumns split(indicator == \"Weekly new hospital admissions per 100k\" || indicator == \"Weekly new ICU admissions per 100k\",",
 				"     disjoint: false) ~> SplitDailyFromWeekly@(Weekly, Daily)",
-				"DimDateSource aggregate(groupBy(ecdc_year_week = year + \"-W\" + lpad(week_of_year, 2, \"0\")),",
+				"DimDateSource aggregate(groupBy(ecdc_year_week = year+\"-W\"+lpad(week_of_year,2,\"0\")),",
 				"     week_start_date = min(date),",
 				"          week_end_date = max(date)) ~> AggDimDate",
 				"SplitDailyFromWeekly@Weekly, AggDimDate join(reported_year_week == ecdc_year_week,",
@@ -163,11 +157,7 @@
 				"     count = sum(value),",
 				"     columnNaming: '$V_$N',",
 				"     lateral: true) ~> pivot1",
-				"PivotWeekly sort(desc(reported_year_week, true),",
-				"     asc(country, true)) ~> SortWeekly",
-				"pivot1 sort(desc(reported_date, true),",
-				"     asc(country, true)) ~> SortDaily",
-				"SortWeekly sink(allowSchemaDrift: true,",
+				"PivotWeekly sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'delimited',",
 				"     container: 'information',",
@@ -178,7 +168,7 @@
 				"     columnNamesAsHeader: false,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> WeeklySinkStream",
-				"SortDaily sink(allowSchemaDrift: true,",
+				"pivot1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'delimited',",
 				"     container: 'information',",
