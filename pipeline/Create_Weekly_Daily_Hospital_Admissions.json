@@ -19,9 +19,9 @@
 						"referenceName": "Hospital_Admission_Filter",
 						"type": "DataFlowReference"
 					},
-					"compute": {
-						"coreCount": 8,
-						"computeType": "General"
+					"integrationRuntime": {
+						"referenceName": "integrationRuntime",
+						"type": "IntegrationRuntimeReference"
 					},
 					"traceLevel": "None",
 					"cacheSinks": {
