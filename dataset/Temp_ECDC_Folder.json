@@ -1,5 +1,5 @@
 {
-	"name": "TempFolder",
+	"name": "Temp_ECDC_Folder",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "StorageAccount_Data",
