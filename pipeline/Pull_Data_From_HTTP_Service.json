@@ -251,7 +251,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"dataset": {
-									"referenceName": "DeleteTempFolder",
+									"referenceName": "DeleteTemp_ECDCFolder",
 									"type": "DatasetReference",
 									"parameters": {
 										"deleteFolderName": {

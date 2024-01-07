@@ -1,5 +1,5 @@
 {
-	"name": "DeleteTempFolder",
+	"name": "DeleteTemp_ECDCFolder",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "StorageAccount_Data",
