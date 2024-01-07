@@ -1,5 +1,5 @@
 {
-	"name": "CaseAndDeathSink",
+	"name": "CasesAndDeathsFolder",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "StorageAccount_Data",
@@ -10,7 +10,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"folderPath": "Temp_Cases_Deaths",
+				"fileName": "cases_deaths.csv",
+				"folderPath": "Cases_Deaths",
 				"container": "information"
 			},
 			"columnDelimiter": ",",
