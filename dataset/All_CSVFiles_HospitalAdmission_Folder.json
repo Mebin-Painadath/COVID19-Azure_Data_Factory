@@ -1,5 +1,5 @@
 {
-	"name": "HospitalAdmissionFolder",
+	"name": "All_CSVFiles_HospitalAdmission_Folder",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "StorageAccount_Data",

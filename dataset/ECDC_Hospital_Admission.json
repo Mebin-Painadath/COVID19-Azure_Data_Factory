@@ -1,5 +1,5 @@
 {
-	"name": "Hospital_Admission",
+	"name": "ECDC_Hospital_Admission",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "StorageAccount_Data",

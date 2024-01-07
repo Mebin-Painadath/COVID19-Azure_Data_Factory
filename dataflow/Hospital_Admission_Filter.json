@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "Hospital_Admission",
+						"referenceName": "ECDC_Hospital_Admission",
 						"type": "DatasetReference"
 					},
 					"name": "HospitalAdmissionsStream"
