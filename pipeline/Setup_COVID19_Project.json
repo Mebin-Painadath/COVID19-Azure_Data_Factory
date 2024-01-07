@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Start_Project",
+				"name": "CasesAndDeathsPipeline",
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
@@ -48,9 +48,31 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "Pull_Data_From_Blob_Storage",
+						"referenceName": "Pull_Data_From_HTTP_Service",
 						"type": "PipelineReference"
 					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "HospitalAdmissionPipeline",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "BlobStorage_Data_Injector",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "HTTP_Data_Injector",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
 					"waitOnCompletion": true
 				}
 			}
