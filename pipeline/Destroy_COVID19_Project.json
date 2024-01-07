@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Delete_Population_Folder",
+				"name": "Delete_Content_In_Information_Container",
 				"type": "Delete",
 				"dependsOn": [],
 				"policy": {
@@ -16,106 +16,16 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "Information_population",
+						"referenceName": "InformationContainer",
 						"type": "DatasetReference"
 					},
 					"enableLogging": false,
 					"storeSettings": {
 						"type": "AzureBlobStorageReadSettings",
 						"recursive": true,
+						"wildcardFileName": "*",
 						"enablePartitionDiscovery": false
 					}
-				}
-			},
-			{
-				"name": "Lookup_filename_url_list",
-				"type": "Lookup",
-				"dependsOn": [
-					{
-						"activity": "Delete_Population_Folder",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "JsonSource",
-						"storeSettings": {
-							"type": "AzureBlobStorageReadSettings",
-							"recursive": true,
-							"enablePartitionDiscovery": false
-						},
-						"formatSettings": {
-							"type": "JsonReadSettings"
-						}
-					},
-					"dataset": {
-						"referenceName": "fileNames_urls_list",
-						"type": "DatasetReference"
-					},
-					"firstRowOnly": false
-				}
-			},
-			{
-				"name": "iterate_over_filename_url_list",
-				"type": "ForEach",
-				"dependsOn": [
-					{
-						"activity": "Lookup_filename_url_list",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"items": {
-						"value": "@activity('Lookup_filename_url_list').output.value",
-						"type": "Expression"
-					},
-					"isSequential": false,
-					"activities": [
-						{
-							"name": "Delete_ECDC",
-							"type": "Delete",
-							"dependsOn": [],
-							"policy": {
-								"timeout": "0.12:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"dataset": {
-									"referenceName": "ECDC_Cases_Death",
-									"type": "DatasetReference",
-									"parameters": {
-										"fileName": {
-											"value": "@item().sinkFileName",
-											"type": "Expression"
-										}
-									}
-								},
-								"enableLogging": false,
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								}
-							}
-						}
-					]
 				}
 			}
 		],
