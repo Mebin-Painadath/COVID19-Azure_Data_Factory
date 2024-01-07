@@ -293,7 +293,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "DeleteTempFiles",
+						"referenceName": "DeleteTemp_ECDCFiles",
 						"type": "DatasetReference"
 					},
 					"enableLogging": false,
