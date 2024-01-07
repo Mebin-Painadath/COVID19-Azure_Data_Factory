@@ -22,7 +22,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "CaseAndDeathSink",
+						"referenceName": "DataFlow_CaseAndDeathSink",
 						"type": "DatasetReference"
 					},
 					"name": "CasesAndDeathsSink"

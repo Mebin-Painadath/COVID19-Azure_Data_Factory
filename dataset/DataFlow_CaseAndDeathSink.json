@@ -1,5 +1,5 @@
 {
-	"name": "CaseAndDeathSink",
+	"name": "DataFlow_CaseAndDeathSink",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "StorageAccount_Data",
