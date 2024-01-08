@@ -1,0 +1,13 @@
+To use HDInsights
+1. Go to Subscription
+2. Click on Resource Provider
+3. Search for HDInsigts
+4. Register
+
+For HDInsights:
+1. Create linked service for storage account
+2. Create App Registration service
+3. Create a secret (only access once)
+4. Go to the resource group of datafactory
+5. Go to Access Control (IAM) and assign app registration service - contributor role
+6. Create linked service for HDInsights
