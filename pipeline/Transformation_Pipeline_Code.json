@@ -1,0 +1,52 @@
+{
+	"name": "Transformation_Pipeline_Code",
+	"properties": {
+		"activities": [
+			{
+				"name": "Process Testing Data",
+				"type": "HDInsightHive",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"scriptPath": "scripts/covid_transform_testing.hql",
+					"scriptLinkedService": {
+						"referenceName": "StorageAccount_EastUS",
+						"type": "LinkedServiceReference"
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "HDInsight_LinkedService",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Population_Transformation",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks1",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"folder": {
+			"name": "Transformation"
+		},
+		"annotations": []
+	}
+}
