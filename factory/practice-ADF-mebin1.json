@@ -1,0 +1,9 @@
+{
+	"name": "practice-ADF-mebin1",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "3cb919ec-bf37-44ee-b965-6230b1375da7",
+		"tenantId": "f0b06929-60fa-48c0-a83d-96566b55f5f4"
+	}
+}
