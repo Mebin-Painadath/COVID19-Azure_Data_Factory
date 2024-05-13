@@ -1,0 +1,9 @@
+{
+	"name": "practiceadfmebin",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "ed4129ea-1397-44fc-8fb3-3254113686ff",
+		"tenantId": "f0b06929-60fa-48c0-a83d-96566b55f5f4"
+	}
+}
