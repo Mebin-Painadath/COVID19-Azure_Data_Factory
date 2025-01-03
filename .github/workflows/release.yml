@@ -14,7 +14,7 @@ jobs:
     
  # we 1st download the previously uploaded artifact so we can leverage it later in the release job     
       - name: Download a Build Artifact
-        uses: actions/download-artifact@v6
+        uses: actions/github-script@v6
         with:
           script: |
             let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
