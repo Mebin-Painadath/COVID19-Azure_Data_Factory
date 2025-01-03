@@ -17,7 +17,10 @@
 				"typeProperties": {
 					"dataset": {
 						"referenceName": "InformationContainer",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"fileName": "*"
+						}
 					},
 					"enableLogging": false,
 					"storeSettings": {
