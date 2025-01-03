@@ -19,6 +19,9 @@
 						]
 					}
 				],
+				"policy": {
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
@@ -32,6 +35,9 @@
 				"name": "BlobStorage_Data_Injector",
 				"type": "ExecutePipeline",
 				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
@@ -45,6 +51,9 @@
 				"name": "HTTP_Data_Injector",
 				"type": "ExecutePipeline",
 				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
@@ -71,8 +80,15 @@
 						]
 					}
 				],
+				"policy": {
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Create_Weekly_Daily_Hospital_Admissions",
+						"type": "PipelineReference"
+					},
 					"waitOnCompletion": true
 				}
 			}
