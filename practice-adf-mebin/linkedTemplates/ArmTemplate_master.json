@@ -1,0 +1,160 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "practice-adf-mebin"
+		},
+		"AzureDatabricks1_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks1'"
+		},
+		"HDInsight_LinkedService_clusterPassword": {
+			"type": "secureString",
+			"metadata": "Secure string for 'clusterPassword' of 'HDInsight_LinkedService'"
+		},
+		"HDInsight_LinkedService_clusterSshPassword": {
+			"type": "secureString",
+			"metadata": "Secure string for 'clusterSshPassword' of 'HDInsight_LinkedService'"
+		},
+		"HDInsight_LinkedService_servicePrincipalKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalKey' of 'HDInsight_LinkedService'"
+		},
+		"StorageAccount_Data_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'StorageAccount_Data'"
+		},
+		"StorageAccount_EastUS_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'StorageAccount_EastUS'"
+		},
+		"Case_Death_CSV_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://github.com"
+		},
+		"HDInsight_LinkedService_properties_typeProperties_hostSubscriptionId": {
+			"type": "string",
+			"defaultValue": "c6ae8b83-57c0-4404-ab5d-498d536e1a58"
+		},
+		"HDInsight_LinkedService_properties_typeProperties_clusterResourceGroup": {
+			"type": "string",
+			"defaultValue": "COVID19-adf-rg"
+		},
+		"HDInsight_LinkedService_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "75e1b099-f930-4cad-9597-ddc73bc62b7b"
+		},
+		"HDInsight_LinkedService_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "f0b06929-60fa-48c0-a83d-96566b55f5f4"
+		},
+		"covid19-123-aws-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://testcovid.dfs.core.windows.net"
+		},
+		"covid19-asw-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://awsdls.dfs.core.windows.net"
+		},
+		"covid19-ws-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://covidsdls.dfs.core.windows.net"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "practice-adf-mebin_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureDatabricks1_accessToken": {
+						"value": "[parameters('AzureDatabricks1_accessToken')]"
+					},
+					"StorageAccount_Data_connectionString": {
+						"value": "[parameters('StorageAccount_Data_connectionString')]"
+					},
+					"StorageAccount_EastUS_connectionString": {
+						"value": "[parameters('StorageAccount_EastUS_connectionString')]"
+					},
+					"Case_Death_CSV_properties_typeProperties_url": {
+						"value": "[parameters('Case_Death_CSV_properties_typeProperties_url')]"
+					},
+					"covid19-123-aws-WorkspaceDefaultStorage_properties_typeProperties_url": {
+						"value": "[parameters('covid19-123-aws-WorkspaceDefaultStorage_properties_typeProperties_url')]"
+					},
+					"covid19-asw-WorkspaceDefaultStorage_properties_typeProperties_url": {
+						"value": "[parameters('covid19-asw-WorkspaceDefaultStorage_properties_typeProperties_url')]"
+					},
+					"covid19-ws-WorkspaceDefaultStorage_properties_typeProperties_url": {
+						"value": "[parameters('covid19-ws-WorkspaceDefaultStorage_properties_typeProperties_url')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "practice-adf-mebin_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"HDInsight_LinkedService_clusterPassword": {
+						"value": "[parameters('HDInsight_LinkedService_clusterPassword')]"
+					},
+					"HDInsight_LinkedService_clusterSshPassword": {
+						"value": "[parameters('HDInsight_LinkedService_clusterSshPassword')]"
+					},
+					"HDInsight_LinkedService_servicePrincipalKey": {
+						"value": "[parameters('HDInsight_LinkedService_servicePrincipalKey')]"
+					},
+					"HDInsight_LinkedService_properties_typeProperties_hostSubscriptionId": {
+						"value": "[parameters('HDInsight_LinkedService_properties_typeProperties_hostSubscriptionId')]"
+					},
+					"HDInsight_LinkedService_properties_typeProperties_clusterResourceGroup": {
+						"value": "[parameters('HDInsight_LinkedService_properties_typeProperties_clusterResourceGroup')]"
+					},
+					"HDInsight_LinkedService_properties_typeProperties_servicePrincipalId": {
+						"value": "[parameters('HDInsight_LinkedService_properties_typeProperties_servicePrincipalId')]"
+					},
+					"HDInsight_LinkedService_properties_typeProperties_tenant": {
+						"value": "[parameters('HDInsight_LinkedService_properties_typeProperties_tenant')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'practice-adf-mebin_ArmTemplate_0')]"
+			]
+		}
+	]
+}
