@@ -1,0 +1,51 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "value": "practice-adf-mebin"
+        },
+        "AzureDatabricks1_accessToken": {
+            "value": ""
+        },
+        "HDInsight_LinkedService_clusterPassword": {
+            "value": ""
+        },
+        "HDInsight_LinkedService_clusterSshPassword": {
+            "value": ""
+        },
+        "HDInsight_LinkedService_servicePrincipalKey": {
+            "value": ""
+        },
+        "StorageAccount_Data_connectionString": {
+            "value": ""
+        },
+        "StorageAccount_EastUS_connectionString": {
+            "value": ""
+        },
+        "Case_Death_CSV_properties_typeProperties_url": {
+            "value": "https://github.com"
+        },
+        "HDInsight_LinkedService_properties_typeProperties_hostSubscriptionId": {
+            "value": "c6ae8b83-57c0-4404-ab5d-498d536e1a58"
+        },
+        "HDInsight_LinkedService_properties_typeProperties_clusterResourceGroup": {
+            "value": "COVID19-adf-rg"
+        },
+        "HDInsight_LinkedService_properties_typeProperties_servicePrincipalId": {
+            "value": "75e1b099-f930-4cad-9597-ddc73bc62b7b"
+        },
+        "HDInsight_LinkedService_properties_typeProperties_tenant": {
+            "value": "f0b06929-60fa-48c0-a83d-96566b55f5f4"
+        },
+        "covid19-123-aws-WorkspaceDefaultStorage_properties_typeProperties_url": {
+            "value": "https://testcovid.dfs.core.windows.net"
+        },
+        "covid19-asw-WorkspaceDefaultStorage_properties_typeProperties_url": {
+            "value": "https://awsdls.dfs.core.windows.net"
+        },
+        "covid19-ws-WorkspaceDefaultStorage_properties_typeProperties_url": {
+            "value": "https://covidsdls.dfs.core.windows.net"
+        }
+    }
+}
