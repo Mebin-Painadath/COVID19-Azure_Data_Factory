@@ -1,5 +1,11 @@
-release:
-    needs: build
+on:
+    workflow_run:
+        workflows: ['createARM']
+        types: [completed]
+        branches:
+            - 'main'
+jobs: 
+  build:
     runs-on: ubuntu-latest
     steps:
     
