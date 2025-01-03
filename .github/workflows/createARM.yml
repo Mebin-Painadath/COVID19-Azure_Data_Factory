@@ -26,12 +26,12 @@ jobs:
 # Validates all of the Data Factory resources in the repository. You'll get the same validation errors as when "Validate All" is selected.
     - name: Validate
       run: npm run build validate ${{github.workspace}}/ADFRoot/ /subscriptions/c6ae8b83-57c0-4404-ab5d-498d536e1a58/resourceGroups/practice-rg/providers/Microsoft.DataFactory/factories/practice-adf-mebin # (2) The validate command needs the root folder location of your repository where all the objects are stored. And the 2nd parameter is the resourceID of the ADF instance 
-      working-directory: ${{github.workspace}}/ADFRoot/build
+      #working-directory: ${{github.workspace}}/ADFRoot/build
  
 
     - name: Validate and Generate ARM template
       run: npm run build export ${{github.workspace}}/ADFRoot/ /subscriptions/c6ae8b83-57c0-4404-ab5d-498d536e1a58/resourceGroups/practice-rg/providers/Microsoft.DataFactory/factories/practice-adf-mebin "ExportedArmTemplate"  # (3) The build command, as validate, needs the root folder location of your repository where all the objects are stored. And the 2nd parameter is the resourceID of the ADF instance. The 3rd parameter is the exported ARM template artifact name 
-      working-directory: ${{github.workspace}}/ADFRoot/build
+      #working-directory: ${{github.workspace}}/ADFRoot/build
  
 # In order to leverage the artifact in another job, we need to upload it with the upload action 
     - name: upload artifact
