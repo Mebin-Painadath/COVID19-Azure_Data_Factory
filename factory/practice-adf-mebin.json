@@ -1,9 +1,0 @@
-{
-	"name": "practice-adf-mebin",
-	"location": "southindia",
-	"identity": {
-		"type": "SystemAssigned",
-		"principalId": "12a1d0b8-6330-47bb-ba54-261cd235a0d5",
-		"tenantId": "f0b06929-60fa-48c0-a83d-96566b55f5f4"
-	}
-}

@@ -1,9 +1,0 @@
-{
-	"name": "covid19-mebin-adf",
-	"location": "eastus",
-	"identity": {
-		"type": "SystemAssigned",
-		"principalId": "6889e483-35f6-4152-9f56-99846bbd8deb",
-		"tenantId": "f0b06929-60fa-48c0-a83d-96566b55f5f4"
-	}
-}
